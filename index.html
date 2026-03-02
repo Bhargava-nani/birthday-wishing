@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday My Love 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #ff6b9d;
+            --secondary-pink: #ff8fab;
+            --deep-pink: #ff2d7a;
+            --soft-pink: #ffe4ec;
+            --gold: #ffd700;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: var(--white);
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-heart {
+            font-size: 80px;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        .loading-text {
+            font-size: 24px;
+            margin-top: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Particle Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Main Container */
+        .main-container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 107, 157, 0.3) 0%, transparent 70%);
+            animation: pulse-bg 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float-up 8s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffd700 50%, #ff6b9d 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+            text-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
+            margin-bottom: 20px;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: var(--secondary-pink);
+            margin-bottom: 30px;
+            animation: fadeInUp 1.5s ease-out 0.3s both;
+        }
+
+        .love-message {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            max-width: 800px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: var(--soft-pink);
+            animation: fadeInUp 1.5s ease-out 0.6s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 3px solid var(--primary-pink);
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-pink);
+            border-radius: 50%;
+            animation: scroll-dot 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        @keyframes scroll-dot {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 30px; }
+        }
+
+        /* Countdown Section */
+        .countdown-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 107, 157, 0.1) 50%, transparent 100%);
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .countdown-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            min-width: 120px;
+            text-align: center;
+            border: 2px solid rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-pink);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        .countdown-number {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            color: var(--primary-pink);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: var(--secondary-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Photo Gallery Section */
+        .gallery-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(118, 75, 162, 0.2) 50%, transparent 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            background: linear-gradient(135deg, var(--gradient-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.8), rgba(118, 75, 162, 0.8));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 30px 60px rgba(255, 107, 157, 0.4);
+        }
+
+        .gallery-item .heart-icon {
+            position: relative;
+            z-index: 2;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Love Letters Section */
+        .letters-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(79, 172, 254, 0.1) 50%, transparent 100%);
+        }
+
+        .letters-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .letter-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 107, 157, 0.2);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .letter-card:hover::before {
+            left: 100%;
+        }
+
+        .letter-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-pink);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        .letter-title {
+            font-size: 1.8rem;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .letter-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--soft-pink);
+            max-height: 100px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .letter-card.expanded .letter-content {
+            max-height: 1000px;
+        }
+
+        .read-more {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-top: 20px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--primary-pink);
+            transform: translateX(10px);
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .music-player:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-pink);
+        }
+
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-info {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .music-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .music-visualizer {
+            display: flex;
+            gap: 3px;
+            align-items: flex-end;
+            height: 20px;
+        }
+
+        .visualizer-bar {
+            width: 4px;
+            background: var(--primary-pink);
+            border-radius: 2px;
+            animation: visualize 0.5s ease-in-out infinite;
+        }
+
+        .visualizer-bar:nth-child(1) { animation-delay: 0s; }
+        .visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
+        .visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
+        .visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
+        .visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes visualize {
+            0%, 100% { height: 5px; }
+            50% { height: 20px; }
+        }
+
+        .music-visualizer.paused .visualizer-bar {
+            animation-play-state: paused;
+            height: 5px;
+        }
+
+        /* Interactive Heart */
+        .interactive-heart {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            font-size: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+        }
+
+        .interactive-heart:hover {
+            transform: scale(1.2);
+        }
+
+        /* Surprise Section */
+        .surprise-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+        }
+
+        .surprise-btn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            animation: pulse-btn 2s infinite;
+        }
+
+        @keyframes pulse-btn {
+            0%, 100% { box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4); }
+            50% { box-shadow: 0 10px 50px rgba(255, 107, 157, 0.8); }
+        }
+
+        .surprise-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.6);
+        }
+
+        .surprise-content {
+            display: none;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .surprise-content.show {
+            display: block;
+        }
+
+        .big-heart {
+            font-size: 150px;
+            animation: heartbeat 1s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+
+        .final-message {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            max-width: 800px;
+            line-height: 1.8;
+            color: var(--soft-pink);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--secondary-pink);
+        }
+
+        .footer-heart {
+            font-size: 30px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .countdown-container {
+                gap: 10px;
+            }
+
+            .countdown-item {
+                min-width: 80px;
+                padding: 20px 10px;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .countdown-label {
+                font-size: 0.7rem;
+            }
+
+            .music-player {
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 15px;
+            }
+
+            .play-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .music-info {
+                font-size: 0.8rem;
+            }
+
+            .interactive-heart {
+                bottom: 80px;
+                right: 20px;
+                font-size: 50px;
+            }
+
+            .letter-card {
+                padding: 25px;
+            }
+
+            .letter-title {
+                font-size: 1.4rem;
+            }
+
+            .letter-content {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 0 10px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .surprise-btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Touch Optimizations */
+        @media (hover: none) {
+            .gallery-item:hover,
+            .letter-card:hover,
+            .countdown-item:hover {
+                transform: none;
+            }
+
+            .gallery-item:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection Color */
+        ::selection {
+            background: var(--primary-pink);
+            color: white;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary-pink), var(--deep-pink));
+            border-radius: 5px;
+        }
+
+        /* Animations for Elements */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle 1s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Text Rain Effect */
+        .text-rain {
+            position: fixed;
+            font-size: 24px;
+            color: var(--primary-pink);
+            pointer-events: none;
+            animation: rain-fall 4s linear forwards;
+            z-index: 5;
+            opacity: 0.7;
+        }
+
+        @keyframes rain-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Diary Section */
+        .diary-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 107, 157, 0.15) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .diary-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-pink);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .diary-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 500px;
+            perspective: 2000px;
+        }
+
+        .diary-book {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .diary-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff5f8 0%, #ffe4ec 100%);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 60px rgba(255, 107, 157, 0.3),
+                inset 0 0 100px rgba(255, 107, 157, 0.1);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100%) rotateY(-20deg);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: grab;
+            overflow: hidden;
+            border: 3px solid rgba(255, 107, 157, 0.3);
+        }
+
+        .diary-page.active {
+            opacity: 1;
+            transform: translateX(0) rotateY(0deg);
+            z-index: 10;
+        }
+
+        .diary-page.prev {
+            opacity: 0;
+            transform: translateX(-100%) rotateY(20deg);
+            z-index: 5;
+        }
+
+        .diary-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff6b9d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 0.9rem;
+            color: var(--primary-pink);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .page-date {
+            font-size: 1.8rem;
+            color: var(--deep-pink);
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 107, 157, 0.2);
+        }
+
+        .page-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #4a4a4a;
+            max-width: 90%;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .page-decoration {
+            font-size: 60px;
+            margin-top: 30px;
+            animation: float-decoration 3s ease-in-out infinite;
+        }
+
+        @keyframes float-decoration {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .diary-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+            z-index: 20;
+            color: white;
+            font-size: 24px;
+            border: none;
+        }
+
+        .diary-nav:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.6);
+        }
+
+        .diary-nav.prev {
+            left: -30px;
+        }
+
+        .diary-nav.next {
+            right: -30px;
+        }
+
+        .diary-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 107, 157, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .indicator.active {
+            background: var(--primary-pink);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+        }
+
+        .indicator:hover {
+            background: var(--secondary-pink);
+        }
+
+        .diary-hint {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: var(--secondary-pink);
+            text-align: center;
+        }
+
+        /* Diary Page Flip Animation */
+        .diary-page.flipping {
+            animation: page-flip 0.6s ease-in-out;
+        }
+
+        @keyframes page-flip {
+            0% {
+                transform: translateX(0) rotateY(0deg);
+            }
+            50% {
+                transform: translateX(-50%) rotateY(-10deg);
+            }
+            100% {
+                transform: translateX(-100%) rotateY(-20deg);
+            }
+        }
+
+        /* Touch feedback for diary */
+        .diary-page:active {
+            cursor: grabbing;
+        }
+
+        /* Responsive Design for Diary */
+        @media (max-width: 768px) {
+            .diary-container {
+                height: 450px;
+                max-width: 90%;
+            }
+
+            .diary-page {
+                padding: 30px 20px;
+            }
+
+            .page-date {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+
+            .page-text {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .page-decoration {
+                font-size: 40px;
+                margin-top: 20px;
+            }
+
+            .diary-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .diary-nav.prev {
+                left: -20px;
+            }
+
+            .diary-nav.next {
+                right: -20px;
+            }
+
+            .indicator {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .diary-container {
+                height: 400px;
+            }
+
+            .diary-page {
+                padding: 25px 15px;
+            }
+
+            .page-date {
+                font-size: 1.2rem;
+            }
+
+            .page-text {
+                font-size: 0.9rem;
+            }
+
+            .page-number {
+                font-size: 0.8rem;
+                top: 15px;
+                right: 20px;
+            }
+
+            .diary-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .diary-nav.prev {
+                left: -15px;
+            }
+
+            .diary-nav.next {
+                right: -15px;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<audio id="bgMusic" loop preload="auto">
+  <source src="assets/raabta.mp3" type="audio/mpeg">
+</audio>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-heart">💕</div>
+            <div class="loading-text">Preparing Something Special...</div>
+        </div>
+    </div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-bg"></div>
+            <div class="floating-hearts" id="floatingHearts"></div>
+            <div class="hero-content">
+                <h1 class="main-title">Happy Birthday My Love 💕</h1>
+                <p class="subtitle">To the Most Special Person in My Life</p>
+                <p class="love-message">
+                    On this beautiful day, I want you to know how much you mean to me. 
+                    You are my sunshine, my heart, my everything. 
+                    Every moment with you is a treasure I hold dear.
+                    Today, I celebrate not just your birthday, but the wonderful person you are.
+                </p>
+            </div>
+            <div class="scroll-indicator" onclick="scrollToSection('countdown')">
+                <span></span>
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="countdown-section" id="countdown">
+            <h2 class="section-title fade-in">Counting Down to Your Special Moment</h2>
+            <div class="countdown-container">
+                <div class="countdown-item fade-in">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item fade-in">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item fade-in">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item fade-in">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section class="gallery-section" id="gallery">
+            <h2 class="section-title fade-in">Our Beautiful Memories</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <span class="heart-icon">💕</span>
+                </div>
+                <div class="gallery-item fade-in">
+                    <span class="heart-icon">🌹</span>
+                </div>
+                <div class="gallery-item fade-in">
+                    <span class="heart-icon">💖</span>
+                </div>
+                <div class="gallery-item fade-in">
+                    <span class="heart-icon">✨</span>
+                </div>
+                <div class="gallery-item fade-in">
+                    <span class="heart-icon">💝</span>
+                </div>
+                <div class="gallery-item fade-in">
+                    <span class="heart-icon">🌟</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Letters Section -->
+        <section class="letters-section" id="letters">
+            <h2 class="section-title fade-in">Letters From My Heart</h2>
+            <div class="letters-container">
+                <div class="letter-card fade-in" onclick="toggleLetter(this)">
+                    <h3 class="letter-title">💕 My Dearest Love,<break>Saanya Sharma !!</break> </h3>
+                    <div class="letter-content">
+                        From the moment you came into my life, everything changed. 
+                        You brought colors to my gray world and music to my silent days. 
+                        Your smile is my favorite sight, and your laugh is my favorite sound. 
+                        Every day with you feels like a beautiful dream I never want to wake up from. 
+                        You've taught me what true love means, and for that, I'll be forever grateful.
+                    </div>
+                    <span class="read-more">Read More →</span>
+                </div>
+
+                <div class="letter-card fade-in" onclick="toggleLetter(this)">
+                    <h3 class="letter-title">🌹 Reasons I Love You</h3>
+                    <div class="letter-content">
+                        U know in Discord I talk to u this that I ever talk to any girll.
+                        I love the way your eyes sparkle when you talk about things you're passionate about.
+                        I love how you always know how to make me smile, even on my worst days.
+                        I love your kindness, your strength, and your beautiful soul.
+                        I love that you're my best friend, my partner, and my everything.
+                        I love the little things you do that show you care.
+                        Most of all, I love that you're you – perfectly imperfect and absolutely wonderful.
+                    </div>
+                    <span class="read-more">Read More →</span>
+                </div>
+
+                <div class="letter-card fade-in" onclick="toggleLetter(this)">
+                    <h3 class="letter-title">✨ My Promise to You</h3>
+                    <div class="letter-content">
+                        I'm Only far from u but I promise to always be close to your heart.
+                        Once I come to u with my success to see ur success too.
+                        I promise to love you unconditionally, through all of life's ups and downs.
+                        I promise to be your biggest supporter and your safe place to fall.
+                        I promise to make you laugh, hold you when you cry, and always be by your side.
+                        I promise to grow old with you, creating countless beautiful memories together.
+                        I promise to cherish every moment we share and never take you for granted.
+                        You are my today and all of my tomorrows.
+                    </div>
+                    <span class="read-more">Read More →</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Surprise Section -->
+        <section class="surprise-section" id="surprise">
+            <h2 class="section-title fade-in">I Have a Surprise for You!</h2>
+            <button class="surprise-btn fade-in" onclick="revealSurprise()">Click Me! 💕</button>
+            <div class="surprise-content" id="surpriseContent">
+                <div class="big-heart">💖</div>
+                <p class="final-message">
+                    My darling, you are the greatest gift life has ever given me. 
+                    On your special day, I want you to know that my love for you grows stronger with each passing day.
+                    You make my world brighter, my heart fuller, and my life more meaningful.
+                    Happy Birthday, my love! May this year bring you endless joy, laughter, and all the happiness you deserve.
+                    I love you more than words could ever express. 💕
+                </p>
+            </div>
+        </section>
+
+        <!-- Romantic Diary Section -->
+        <section class="diary-section" id="diary">
+            <h2 class="section-title fade-in">Our Love Diary 📖</h2>
+            <p class="diary-subtitle fade-in">Swipe through our beautiful memories...</p>
+            
+            <div class="diary-container fade-in">
+                <div class="diary-book" id="diaryBook">
+                    <!-- Page 1 -->
+                    <div class="diary-page active" data-page="1">
+                        <div class="page-content">
+                            <div class="page-number">Page 1</div>
+                            <div class="page-date">💕 Our First Meeting</div>
+                            <div class="page-text">
+                                I still remember the day we first met like it was yesterday. 
+                                The moment whn i make u calm, I knew something magical was about to happen.
+                                Your response lit up my entire mind, and my heart skipped a beat.
+                                That was the beginning of our beautiful journey together.
+                            </div>
+                            <div class="page-decoration">🌹</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 2 -->
+                    <div class="diary-page" data-page="2">
+                        <div class="page-content">
+                            <div class="page-number">Page 2</div>
+                            <div class="page-date">💖 Our First Care</div>
+                            <div class="page-text">
+                                Our first Care was absolutely perfect. 
+                                We talked for hours about ...., losing track of time completely.
+                                Every laugh we shared, every story we told - it all felt so natural.
+                                I knew that you r a strong indepedent women.
+                            </div>
+                            <div class="page-decoration">✨</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3 -->
+                    <div class="diary-page" data-page="3">
+                        <div class="page-content">
+                            <div class="page-number">Page 3</div>
+                            <div class="page-date">💗 When I Knew</div>
+                            <div class="page-text">
+                                There was this one moment when I found you and everything changed.
+                                I realized I wasn't just falling for you - I had already fallen.
+                                You became my only one person chat, my safe place, my everything.
+                                Loving you became the proudest thing I've ever done.
+                            </div>
+                            <div class="page-decoration">💝</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 4 -->
+                    <div class="diary-page" data-page="4">
+                        <div class="page-content">
+                            <div class="page-number">Page 4</div>
+                            <div class="page-date">🌟 Our Adventures</div>
+                            <div class="page-text">
+                                Every adventure with you is my favorite memory.
+                                From spontaneous game help to quiet talks in the DC,
+                                from Caring in the situations to cozy feel in chat.
+                                It doesn't matter what we do - as long as I'm with you, it's perfect.
+                            </div>
+                            <div class="page-decoration">🌈</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 5 -->
+                    <div class="diary-page" data-page="5">
+                        <div class="page-content">
+                            <div class="page-number">Page 5</div>
+                            <div class="page-date">💓 Little Moments</div>
+                            <div class="page-text">
+                                It's the little things that mean the most.
+                                The way you talk to me, the sound of your courage,
+                                how you remember the smallest details about me.
+                                These little moments are what make our love so extraordinary.
+                            </div>
+                            <div class="page-decoration">🦋</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 6 -->
+                    <div class="diary-page" data-page="6">
+                        <div class="page-content">
+                            <div class="page-number">Page 6</div>
+                            <div class="page-date">💕 Through It All</div>
+                            <div class="page-text">
+                                We've been through ups and downs together,
+                                but every challenge only made us stronger.
+                                You've been my rock, my support, my biggest cheerleader.
+                                I'm so grateful to have you by my side through everything.
+                            </div>
+                            <div class="page-decoration">🌸</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 7 -->
+                    <div class="diary-page" data-page="7">
+                        <div class="page-content">
+                            <div class="page-number">Page 7</div>
+                            <div class="page-date">💖 Why I Love You</div>
+                            <div class="page-text">
+                                The main reason I love u is the girl who cared me and talk like me.
+                                Honestly I've got 6 Proposals in Bangalore but just I didn't found in them which I found from u.
+                                I love your kindness, your strength, your beautiful soul.
+                                I love how you make me a better person just by being you.
+                                I love that you're my best friend and my greatest love.
+                                I love everything about you, even the things you don't see yourself.
+                            </div>
+                            <div class="page-decoration">💎</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 8 -->
+                    <div class="diary-page" data-page="8">
+                        <div class="page-content">
+                            <div class="page-number">Page 8</div>
+                            <div class="page-date">🌹 Forever & Always</div>
+                            <div class="page-text">
+                                This diary is just the beginning of our story.
+                                I can't wait to fill countless more pages with our memories.
+                                Every day with you is a new chapter I'm excited to write.
+                                I love you more than words could ever say, today and always.
+                            </div>
+                            <div class="page-decoration">💕</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <div class="diary-nav prev" onclick="prevPage()">
+                    <span>❮</span>
+                </div>
+                <div class="diary-nav next" onclick="nextPage()">
+                    <span>❯</span>
+                </div>
+
+                <!-- Page Indicators -->
+                <div class="diary-indicators" id="diaryIndicators">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+
+            <p class="diary-hint fade-in">💕 Swipe left/right or use arrows to navigate</p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with <span class="footer-heart">💕 and I would like to see u a Succes IPS officer !</span> just for you</p>
+            <p>Forever & Always</p>
+        </footer>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="play-btn" id="playBtn" onclick="toggleMusic()">▶</button>
+        <div class="music-info">
+            <div class="music-title">Beautiful Love Song</div>
+            <div class="music-visualizer paused" id="visualizer">
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Heart -->
+    <div class="interactive-heart" id="interactiveHeart" onclick="createHeartBurst(event)">💖</div>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Particle System
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = `hsla(${Math.random() * 60 + 320}, 100%, 70%, ${this.opacity})`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        // Create particles
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Floating Hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '🩷'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        createFloatingHearts();
+
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const birthday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+            const diff = birthday - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle Letter
+        function toggleLetter(card) {
+            card.classList.toggle('expanded');
+            const readMore = card.querySelector('.read-more');
+            readMore.textContent = card.classList.contains('expanded') ? 'Read Less ←' : 'Read More →';
+        }
+
+        // Music Player (FINAL FIX)
+let isPlaying = false;
+const playBtn = document.getElementById('playBtn');
+const visualizer = document.getElementById('visualizer');
+const bgMusic = document.getElementById('bgMusic');
+
+bgMusic.volume = 0.6; // soft romantic volume
+
+function toggleMusic() {
+    if (!isPlaying) {
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+            visualizer.classList.remove('paused');
+            createSparkles();
+        }).catch(err => {
+            console.log("User interaction required to play audio");
+        });
+    } else {
+        bgMusic.pause();
+        isPlaying = false;
+        playBtn.textContent = '▶';
+        visualizer.classList.add('paused');
+    }
+}
+
+        // Create Sparkles
+        function createSparkles() {
+            const colors = ['#ff6b9d', '#ffd700', '#ff8fab', '#fff'];
+            
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                    sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 100);
+            }
+        }
+
+        // Heart Burst Effect
+        function createHeartBurst(event) {
+            const hearts = ['💕', '💖', '💗', '💓', '💝'];
+            const rect = event.target.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.position = 'fixed';
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                heart.style.fontSize = '30px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '9999';
+                heart.style.transition = 'all 1s ease-out';
+                document.body.appendChild(heart);
+
+                const angle = (Math.PI * 2 * i) / 20;
+                const distance = 100 + Math.random() * 100;
+                const endX = x + Math.cos(angle) * distance;
+                const endY = y + Math.sin(angle) * distance;
+
+                setTimeout(() => {
+                    heart.style.left = endX + 'px';
+                    heart.style.top = endY + 'px';
+                    heart.style.opacity = '0';
+                    heart.style.transform = 'scale(0)';
+                }, 10);
+
+                setTimeout(() => heart.remove(), 1000);
+            }
+
+            createSparkles();
+        }
+
+        // Reveal Surprise
+        function revealSurprise() {
+            const content = document.getElementById('surpriseContent');
+            content.classList.add('show');
+            
+            // Create celebration effect
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createHeartBurst({ target: { getBoundingClientRect: () => ({ left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 }) } });
+                }, i * 100);
+            }
+        }
+
+        // Text Rain Effect
+        function createTextRain() {
+            const texts = ['💕', 'Love', '💖', 'You', '💗', 'Forever', '💓', 'Always'];
+            
+            setInterval(() => {
+                const text = document.createElement('div');
+                text.className = 'text-rain';
+                text.textContent = texts[Math.floor(Math.random() * texts.length)];
+                text.style.left = Math.random() * window.innerWidth + 'px';
+                text.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                document.body.appendChild(text);
+                
+                setTimeout(() => text.remove(), 6000);
+            }, 500);
+        }
+
+        createTextRain();
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Touch Events for Mobile
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.gallery-item')) {
+                createHeartBurst({ target: e.target });
+            }
+        });
+
+        // Prevent Context Menu on Long Press (Mobile)
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Service Worker for Offline Support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Service worker registration would go here for full offline support
+                console.log('Offline support ready');
+            });
+        }
+
+        // Console Love Message
+        console.log('%c💕 Happy Birthday My Love! 💕 ', 'font-size: 30px; color: #ff6b9d; font-weight: bold;');
+        console.log('%cThis website was made with all my love for you!', 'font-size: 16px; color: #ff8fab;');
+
+        // Diary Functionality
+        let currentPage = 1;
+        const totalPages = 8;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isDragging = false;
+        let startX = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+
+        // Initialize diary
+        function initDiary() {
+            createIndicators();
+            updateDiary();
+            setupSwipeGestures();
+        }
+
+        // Create page indicators
+        function createIndicators() {
+            const container = document.getElementById('diaryIndicators');
+            for (let i = 1; i <= totalPages; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator' + (i === 1 ? ' active' : '');
+                indicator.onclick = () => goToPage(i);
+                container.appendChild(indicator);
+            }
+        }
+
+        // Update diary display
+        function updateDiary() {
+            const pages = document.querySelectorAll('.diary-page');
+            const indicators = document.querySelectorAll('.indicator');
+
+            pages.forEach((page, index) => {
+                page.classList.remove('active', 'prev');
+                if (index + 1 === currentPage) {
+                    page.classList.add('active');
+                } else if (index + 1 < currentPage) {
+                    page.classList.add('prev');
+                }
+            });
+
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        // Go to specific page
+        function goToPage(page) {
+            if (page < 1 || page > totalPages) return;
+            
+            const direction = page > currentPage ? 'next' : 'prev';
+            currentPage = page;
+            
+            // Add flip animation
+            const activePage = document.querySelector('.diary-page.active');
+            if (activePage) {
+                activePage.classList.add('flipping');
+                setTimeout(() => {
+                    activePage.classList.remove('flipping');
+                }, 600);
+            }
+            
+            updateDiary();
+            createHeartBurst({ target: { getBoundingClientRect: () => ({ 
+                left: window.innerWidth / 2, 
+                top: window.innerHeight / 2, 
+                width: 0, 
+                height: 0 
+            })}});
+        }
+
+        // Next page
+        function nextPage() {
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        }
+
+        // Previous page
+        function prevPage() {
+            if (currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        }
+
+        // Setup swipe gestures
+        function setupSwipeGestures() {
+            const diaryBook = document.getElementById('diaryBook');
+
+            // Touch events for mobile
+            diaryBook.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                isDragging = true;
+                startX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            diaryBook.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                touchEndX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            diaryBook.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                handleSwipe();
+            }, { passive: true });
+
+            // Mouse events for desktop
+            diaryBook.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX;
+                touchStartX = e.clientX;
+                diaryBook.style.cursor = 'grabbing';
+            });
+
+            diaryBook.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                touchEndX = e.clientX;
+            });
+
+            diaryBook.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                diaryBook.style.cursor = 'grab';
+                handleSwipe();
+            });
+
+            diaryBook.addEventListener('mouseleave', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    diaryBook.style.cursor = 'grab';
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') nextPage();
+                if (e.key === 'ArrowLeft') prevPage();
+            });
+        }
+
+        // Handle swipe gesture
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next page
+                    nextPage();
+                } else {
+                    // Swipe right - previous page
+                    prevPage();
+                }
+            }
+        }
+
+        // Initialize diary when DOM is ready
+        document.addEventListener('DOMContentLoaded', initDiary);
+    </script>
+</body>
+</html>
