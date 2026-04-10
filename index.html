@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday My Love 💕</title>
+    <title>Happy Birthday My Gurll 💕</title>
     <style>
         * {
             margin: 0;
@@ -1115,11 +1115,11 @@
             <div class="hero-bg"></div>
             <div class="floating-hearts" id="floatingHearts"></div>
             <div class="hero-content">
-                <h1 class="main-title">Happy Birthday My Love 💕</h1>
-                <p class="subtitle">To the Most Special Person in My Life</p>
+                <h1 class="main-title">Happy Birthday My gurll Saanya 💕</h1>
+                <p class="subtitle">To the Most Unique Person in My Life</p>
                 <p class="love-message">
                     On this beautiful day, I want you to know how much you mean to me. 
-                    You are my sunshine, my heart, my everything. 
+                    You are my sunshine, my Frnd, my Well-Wisher. 
                     Every moment with you is a treasure I hold dear.
                     Today, I celebrate not just your birthday, but the wonderful person you are.
                 </p>
@@ -1182,26 +1182,26 @@
             <h2 class="section-title fade-in">Letters From My Heart</h2>
             <div class="letters-container">
                 <div class="letter-card fade-in" onclick="toggleLetter(this)">
-                    <h3 class="letter-title">💕 My Dearest Love</h3>
+                    <h3 class="letter-title">💕 My Dearest Bestieee, Saanya Sharma</h3>
                     <div class="letter-content">
                         From the moment you came into my life, everything changed. 
                         You brought colors to my gray world and music to my silent days. 
-                        Your smile is my favorite sight, and your laugh is my favorite sound. 
+                        Your careing is my favorite quality, and your laugh is my favorite sound. 
                         Every day with you feels like a beautiful dream I never want to wake up from. 
-                        You've taught me what true love means, and for that, I'll be forever grateful.
+                        You've taught me what true Bonding means, and for that, I'll be forever grateful.
                     </div>
                     <span class="read-more">Read More →</span>
                 </div>
 
                 <div class="letter-card fade-in" onclick="toggleLetter(this)">
-                    <h3 class="letter-title">🌹 Reasons I Love You</h3>
+                    <h3 class="letter-title">🌹 Reasons I like You</h3>
                     <div class="letter-content">
                         U know in Discord I talk to u this that I ever talk to any girll.
-                        I love the way your eyes sparkle when you talk about things you're passionate about.
-                        I love how you always know how to make me smile, even on my worst days.
-                        I love your kindness, your strength, and your beautiful soul.
-                        I love that you're my best friend, my partner, and my everything.
-                        I love the little things you do that show you care.
+                        I like the way your possession was sparkle when you talk about things you're passionate about.
+                        I like how you always know how to make me smile, even on my worst days.
+                        I like your kindness, your strength, and your beautiful soul.
+                        I like that you're my best friend, my partner, and my everything.
+                        I like the little things you do that show you care.
                         Most of all, I love that you're you – perfectly imperfect and absolutely wonderful.
                     </div>
                     <span class="read-more">Read More →</span>
@@ -1501,15 +1501,26 @@
         // Countdown Timer
         function updateCountdown() {
             const now = new Date();
-            const birthday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-            const diff = birthday - now;
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    // Set target time → today 12:00 AM (midnight)
+            const target = new Date();
+            target.setHours(0, 0, 0, 0);
 
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
+    // If already past 12 AM → show main content
+            if (now >= target) {
+                document.querySelector('.countdown-section').style.display = "none";
+                document.querySelector('.main-container').style.display = "block";
+                return;
+        }
+
+    // Else → keep counting till midnight
+            const diff = target - now;
+
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('days').textContent = "00";
             document.getElementById('hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
             document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
